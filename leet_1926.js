@@ -52,6 +52,7 @@ var nearestExit = function (maze, entrance) {
  }
  return mmin == 0 ? -1 : mmin
 };
+dfdfsf;
 
 
 /*
