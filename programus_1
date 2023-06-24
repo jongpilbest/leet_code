@@ -1,0 +1,35 @@
+function solution(priorities, location) 
+{
+  
+  
+      var count=1;
+        priorities = priorities.map((priority, index) => [priority, index])
+    
+         while(true){
+           var [gapp,index]= priorities.shift();
+         
+       const find__max_index = priorities.findIndex(([value, _]) => value > gapp)
+        
+  
+               //이값보다 큰 값의 인덱스 찾으면 
+            if(find__max_index!=-1){
+               priorities.push([gapp,index]);
+                
+                continue;
+            }
+             else{
+               count+=1;
+               // 이값보다 큰값 못찾은경우 
+                 if(index==location){
+                     count-=1;
+                     return count;
+                 }
+               
+             }
+            
+           
+         } 
+    
+    
+    return count;
+}
