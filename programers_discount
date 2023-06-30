@@ -1,0 +1,32 @@
+function solution(want, number, discount) {
+    var answer = 0;
+    var oj={};
+
+     want.map((el,index)=>{oj[el]=number[index]});
+  
+    for(var i=0; i<discount.length; i++){
+        var count_copy= {...oj};
+         var count=0;
+        for(var ii=i; ii<=i+9; ii++){
+            if( !count_copy[discount[ii]]){
+                break;
+            }
+            else{
+                if(count_copy[discount[ii]]>0){
+                    count_copy[discount[ii]]-=1;
+                    if(count_copy[discount[ii]]==0){
+                        count+=1;
+                    }
+                }
+            }
+        }
+        if(count==number.length){
+            answer+=1;
+            //return i+1;
+        }
+
+    }
+    
+   return answer; 
+}
+
