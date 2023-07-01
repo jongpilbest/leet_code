@@ -1,0 +1,33 @@
+function solution(msg) {
+    var answer = [];
+    var alpha={};
+    var gogo=1;
+    for(var i=65; i<=90; i++){ 
+        alpha[String.fromCharCode(i)]=gogo;
+        gogo+=1;
+    }
+ var return_num=[];
+ var pointer_alpha=1;
+ var start_alpha=msg[0];
+ var hey_retur=[];
+ var plus_befor=''
+  while(pointer_alpha<msg.length){
+        plus_befor=start_alpha
+        start_alpha+=msg[pointer_alpha];
+ 
+      if(!alpha[start_alpha]){
+          hey_retur.push(alpha[plus_befor]);
+          alpha[start_alpha]= gogo;
+          gogo+=1;
+          start_alpha=msg[pointer_alpha];
+      }
+
+        pointer_alpha+=1;
+       
+    }
+   
+     hey_retur.push(alpha[start_alpha]);
+   
+      return (hey_retur) 
+    
+}
