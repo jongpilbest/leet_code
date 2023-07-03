@@ -1,0 +1,63 @@
+//https://school.programmers.co.kr/learn/courses/30/lessons/92341
+
+function solution(fees, records) {
+    var answer = [];
+    // for 문으로 객체 만들어서 시간을 구한다 [들어온시간 , 누적 시간] 출차 나오면 들어온시간 0 으로 셋팅 누적
+    //시간에다가 더하기 
+    //for 문 끝났는데도 들어온 시간 0 이 아닌 경우에는 / 한번더 정리해줌  < 
+    // 그것을 토대로 해서 계산해주기  챠랑 번호가 작은것 부터 계산해야됨요 
+    
+    var obj_fee={};
+    
+    for(var i=0; i<records.length; i++){
+       var [time, name, ima]= records[i].split(' ');
+       var [front,back]= time.split(':');
+       var remain_time= parseInt(front)*60+ parseInt(back);
+     
+        if(ima=='IN'){
+            if(!obj_fee[name]){
+                obj_fee[name]=[remain_time,0]
+            }
+            else{
+                 obj_fee[name][0]=remain_time
+            }
+        }
+        else if( ima=='OUT'){
+              obj_fee[name][1]+=remain_time -obj_fee[name][0];
+              obj_fee[name][0]='*';
+        }
+    }
+    //여기서 그냥 계산해버리자 
+    for(var i in obj_fee){
+   
+        if(obj_fee[i][0]!='*'){
+             var rem=((23*60)+59)-obj_fee[i][0];
+            obj_fee[i][1]+=rem;
+            obj_fee[i][0]='*';
+        }
+
+        //위에서 한번 계산해준거 이제 1 만 보면됨 
+        var [ gibon_time,gibon_fee,bun_time,bun_fee]=fees;
+        if( obj_fee[i][1]<gibon_time){
+            obj_fee[i]=gibon_fee;
+        }
+        else{
+            //넘었을 경우에는 
+             obj_fee[i]= gibon_fee+(( Math.ceil((obj_fee[i][1]-gibon_time)/bun_time) )*bun_fee)
+            
+        }
+        
+
+        
+    }
+   
+    var ne_result=[];
+    var new_ob=Object.entries(obj_fee).sort((a,b)=>  a[0]-b[0]).map((el)=>{
+      ne_result.push(el[1])
+    });
+    
+
+    
+    return ne_result;
+}
+
