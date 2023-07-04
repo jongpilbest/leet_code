@@ -1,0 +1,58 @@
+function solution(record) {
+    var answer = [];
+    //1. 들어왔으면 아이디 고정 object 형식으로 고정 아이디 : 닉네임 식으로 고정
+    // change 한 경우 :닉네임 수정 >  들어온 경우 일렬로 수정해야되기 때문에 
+    //  배열로 저장해놓을끼.. 근데 배열 find 하나밖에 못칫는디...... 찾을려면 엄청 오래걸리고
+    //  uld1234: ['들어왔습니다.',1] ['나갔습니다.',2]
+   //   uid4567:[prodo,IN,2]
+    // 로그기록과 닉네임을 따로 빼서  for 문 끝나면 > key 값을 닉네임으로 바꿔줌 object assign 함 ,
+    // sort 함 
+    var log={
+        
+    }
+    var nick={
+        
+    }
+ 
+    for(var i=0; i<record.length; i++){
+
+        var [oper,id,nickname]=record[i].split(' ');
+        if(oper=='Enter'|| oper=='Change'){
+            nick[id]=nickname;
+        }
+        if(oper=='Enter'){
+            if(!log[id]){
+                log[id]=[['들어왔습니다.',i]]
+            }
+            else{
+                log[id].push(['들어왔습니다.',i])
+            }
+        }
+        if(oper=='Leave'){
+              if(!log[id]){
+                log[id]=[['나갔습니다.',i]]
+            }
+            else{
+                log[id].push(['나갔습니다.',i])
+            }
+        }
+    }
+    var new_return=[];
+    
+    //새로운 객체로 형성 해야될듯요 
+    var new_obj=[];
+   for(var name in log){
+         //console.log(log[name],'이름')
+       for(var i=0; i<log[name].length; i++){
+           new_obj.push([nick[name],...log[name][i]])
+       }
+   }
+  new_obj.sort((a,b)=> a[2]-b[2]).map((el)=>{
+      new_return.push(el[0]+'님이 '+el[1])
+  });
+    //console.log(new_return)
+  
+    
+    
+    return new_return;
+}
