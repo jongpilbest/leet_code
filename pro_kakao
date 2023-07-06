@@ -1,0 +1,105 @@
+function solution(m, n, board) {
+    var board_arr= Array.from(Array(m), () => Array(n-1).fill(null));
+ 
+    
+    for(var i=0; i<m; i++){
+       var nn= board[i].split('');
+        
+        for(var zz=0; zz<nn.length; zz++){
+            board_arr[i][zz]=nn[zz];
+        }
+    }
+  
+
+    var answer = 0;
+    var yy=[0,+1,+1];
+    var xx=[+1,+1,0];
+    var gogo=[];
+    
+     // 찾는 함수 
+    const heyfind= function(y,x,ima){
+        var count=0;
+        for(var i=0; i<3; i++){
+            var new_y= y+yy[i];
+            var new_x= x+xx[i];
+            if(new_y>-1 &&new_y <m && new_x >-1 && new_x<n){
+              if(board_arr[new_y][new_x]!=ima)
+                  {
+                      return;
+                  }
+            if(board_arr[new_y][new_x]==ima){
+                count+=1;
+            }
+            }
+        }
+        if(count==3){
+            gogo.push([y,x]);
+        }
+      
+    }
+    const check_xx= function(y,x){
+           board_arr[y][x]='X';
+ answer+=1;
+          for(var i=0; i<3; i++){
+            var new_y= y+yy[i];
+            var new_x= x+xx[i];
+             if( board_arr[new_y][new_x]!='X'){
+                board_arr[new_y][new_x]='X';
+    
+            answer+=1;
+               }
+           
+        }
+    }
+    const go_sero= function(what_col){
+      //음//splice 으로 그냥 잘라버리고 걍 새로 붙이자 
+        var new_Sero=[];
+        for(var sero=0; sero<m; sero++){
+             if(board_arr[sero][what_col]!='X'){
+                 new_Sero.push(board_arr[sero][what_col])
+             }
+        }
+        if(new_Sero.length < m){
+        for(var i=0; i<m; i++){
+              if(i<m-new_Sero.length){
+               board_arr[i][what_col]=null;
+            }
+               else{
+            board_arr[i][what_col]=new_Sero.shift();
+               }
+            }
+
+}
+    }
+  
+    var count=0;
+    while(true){
+        
+         for(var gogo_y=0; gogo_y<m; gogo_y++){
+         for(var gogo_x=0; gogo_x<n ; gogo_x++){
+             if( board_arr[gogo_y][gogo_x]){
+
+             heyfind(gogo_y,gogo_x,board_arr[gogo_y][gogo_x]);
+         }
+}
+          }  //여기서 다 넣어줌
+        
+        if( gogo.length==0){
+            break;
+        } 
+           
+          if(gogo.length>0){
+            while(gogo.length>0){
+             var [yyy,xxx]=gogo.pop();
+             check_xx(yyy,xxx);
+               }
+           }
+          for(var goxxx=0; goxxx<n; goxxx++){
+               go_sero(goxxx);
+          }  
+  
+    }
+
+
+    return answer;
+}
