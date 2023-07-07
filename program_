@@ -1,0 +1,29 @@
+function solution(topping) {
+    var obh={};
+    for(var i=0; i<topping.length; i++){
+         if(!obh[topping[i]]){
+             obh[topping[i]]=1;
+         }
+        else{
+            obh[topping[i]]+=1;
+        }
+    }
+    var total_obh=Object.keys(obh).length;
+    var includ_obh=[];
+    var count=0;
+    for(var i=0; i<topping.length-1; i++){
+     obh[topping[i]]-=1;
+    if(obh[topping[i]]==0){
+               total_obh-=1;
+       }
+        if(!includ_obh.includes(topping[i])){
+            includ_obh.push(topping[i]);
+          }
+        if(total_obh==includ_obh.length){
+            count+=1;
+        }
+    }
+    return (count);
+}
+
+https://velog.io/@daum091409/JS%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-LEVEL-2-%EB%A1%A4%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%9E%90%EB%A5%B4%EA%B8%B0
