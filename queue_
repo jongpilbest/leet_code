@@ -1,0 +1,35 @@
+function solution(queue1, queue2) {
+  // 슬라이딩 윈도우 기법같은디 
+  // 
+  var concat__qula= queue1.concat(queue2);
+  var first_queal=queue1.reduce((acc, cur) => { return acc += cur; }, 0);
+  var second_queal=queue2.reduce((acc, cur) => { return acc += cur; }, 0);   var total_count=-1;
+   var final= Math.floor( (first_queal+second_queal)/2);
+  if( Math.floor((first_queal+second_queal) %2)==1){
+      return -1;
+  }
+   var front=0; 
+   var back=queue1.length-1;
+   for(var i=0; i<queue1.length*3; i++){
+      if(first_queal==final){
+          return i;
+      }
+      if(first_queal<final) {
+           back+=1;
+          first_queal+=concat__qula[back];
+          continue;
+        
+      }
+      if(first_queal>final){
+           first_queal-=concat__qula[front];
+           front+=1;
+            continue;
+        
+      }
+      
+   }
+   return -1
+}
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/118667
