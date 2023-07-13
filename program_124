@@ -1,0 +1,30 @@
+function solution(n) {
+    var answer = '';
+    var hey=[1,2,4];
+    var main_hey=[1,2,4]
+    var count=3;
+    if(n<=3){
+
+        return (hey[n-1].toString());
+    }
+    while(count<n){
+     
+        var first_shift=main_hey.shift();
+        for(var i=0; i<3; i++){
+           count+=1;
+           var change_first=first_shift+''+hey[i];
+           
+           main_hey.push(change_first);
+            if(count==n){
+                break;
+            }
+         
+        }
+    }
+    return (main_hey[main_hey.length-1]);
+    
+    //return answer;
+}
+//solution(10)
+
+//1
