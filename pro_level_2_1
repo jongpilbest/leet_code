@@ -1,0 +1,71 @@
+function solution(m, musicinfos) {
+    var answer = '';
+    var count_max=0;
+    var name_count=''
+   const hey_shap= function(go_string){
+       var return_Ar=[];
+        for(var ig=0; ig<go_string.length; ig++){
+            if(go_string[ig]=='#'){
+                return_Ar.push(return_Ar.pop()+'#');
+            }
+            else{
+                 return_Ar.push(go_string[ig]);
+            }
+        }
+       return return_Ar;
+   }
+
+    m=hey_shap(m);
+  
+   
+    for(var i=0; i<musicinfos.length; i++){
+        var [fisrt,end,name,music]=musicinfos[i].split(',');
+        var point=0;
+        var [first_time,first_second]=fisrt.split(':');
+        var [second_time,second_second]=end.split(':');
+      
+   
+        var remain= (
+            (parseInt(second_time*60) +parseInt(second_second))-(parseInt(first_time*60) +parseInt(first_second)))
+         music=hey_shap(music);
+         console.log(remain,'time')
+        if(remain/ music.length >=1){
+            var origin= music
+              while(music.length<remain){
+                   music.push(origin[point]);
+                   point++;
+                   if(point==origin.length){
+                       point=0;
+                   }
+              }
+        }
+        if(remain-music.length <1){
+            music=music.slice(0,remain)
+        }
+
+        console.log(music)
+        //확인하는거요 
+        var pointer=0;
+        for(var go_i=0; go_i<music.length; go_i++)
+            {
+                if(m[0]==music[go_i]){
+                     if(m.join('')== music.slice(go_i,go_i+m.length).join('')){
+                         if(count_max<music.length){
+                             count_max=music.length;
+                             name_count=name;
+                         }
+                     }
+                }
+              
+                
+            }
+        
+        
+    }
+    if(name_count==''){
+        return '(None)'
+    }
+    return name_count
+}
+
+
