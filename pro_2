@@ -1,0 +1,62 @@
+function solution(expression1) {
+    var answer = 0;
+ const expression = expression1.split(/(\D)/); 
+ var max_return=0;
+ 
+    //수식을 숫자와 아닌것을 뽑은다음 .  
+    // 갯수를 통해 우선순위를 부여하는것 
+    //조합 순열 이거 개념을 이용해서 뽑는거 같은디 
+    //[] 이런식으로 만듬 이중배열 
+    // 그다음 이순으로 stack 구조 만들기
+    
+    var sushi=[
+        ['*','-','+'],
+        ['*','+','-'],
+        ['+','-','*'],
+        ['+','*','-'],
+        ['-','+','*'],
+        ['-','*','+']
+    ];
+     const hey_go= function(x1,x2,ima){
+         if(ima=='*'){
+             return x1*x2;
+         }
+         if(ima=='+'){
+             return x1+x2;
+         }
+         if(ima=='-'){
+             return x1-x2;
+         }
+     }
+    
+    
+    for(var i=0; i<sushi.length; i++){
+           const copy_expression=expression.slice();
+   
+        for(var go_i=0; go_i<3; go_i++){
+          if(copy_expression.includes(sushi[i][go_i])){
+          
+            for(var go=0; go<copy_expression.length; go++){
+               if(copy_expression[go]==sushi[i][go_i]){
+             // var hey=expression.slice(go-1,go+2);
+              var new_hey=hey_go(   parseInt(copy_expression[go-1]),parseInt(copy_expression[go+1]),sushi[i][go_i]);
+               copy_expression.splice(go-1,3,new_hey);
+                   //console.log(copy_expression.slice())
+                   go-=1;
+           }
+       }
+
+    }
+            if(isNaN(copy_expression)==false){
+            max_return= Math.max(Math.abs(copy_expression),max_return);    
+            }
+            
+        }
+    
+        }
+    return max_return;
+}
+
+solution("50*6-3*2")
+
+//https://school.programmers.co.kr/learn/courses/30/lessons/67257
