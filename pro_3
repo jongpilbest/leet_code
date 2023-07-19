@@ -1,0 +1,45 @@
+function solution(n, wires) {
+    var answer = Infinity;
+    //for 문을 활용해서 dfs 시작하기
+      let tree = Array.from(Array(n+1),()=>[]);
+     wires.map((el)=>{
+         tree[el[0]].push(el[1]);
+          tree[el[1]].push(el[0]);
+     })
+   
+    const dfs= function(root,exception){
+     
+        var check_node=[root];
+        var queue_=[root];
+        while(queue_.length>0){
+               var first= queue_.pop();
+                tree[first].map((el)=>{
+                if(!check_node.includes(el) && el!=exception){
+                       queue_.push(el);
+                       check_node.push(el);
+                }     
+                })
+               
+            
+            
+        }
+        
+        return check_node.length;
+        
+    }
+      
+    
+    wires.map((El)=>{
+     answer=Math.min(answer,Math.abs( dfs(El[0],El[1])-dfs(El[1],El[0])))
+        
+        
+    })
+    
+   
+
+    
+ 
+
+    
+    return answer;
+}
