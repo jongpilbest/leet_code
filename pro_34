@@ -1,0 +1,63 @@
+
+
+function chunkString(str, length) {
+//length의 길이 만큼 글자를 자른다.
+    return str.match(new RegExp('.{1,' + length + '}', 'g'));
+// 정규식으로 length의 길이만 큼 자라서 배열로 return 합니다.
+}
+function solution(s) {
+    if(s.length==1){
+        return 1;
+        
+    }
+    var answer = 0;
+    var min_length= Infinity;
+   const check_total= function(arr){
+    // 자른거 어디까지 같은지 확인 병신 스택쓰자 
+     var return__='';
+     var stack__= [ arr[0],1]
+    for(var i=1; i<arr.length; i++){
+      if(arr[i]==stack__[0]){
+           stack__[1]+=1;           
+       }
+       else{
+// 다른 경우 
+           if(stack__[1]==1){
+                   return__+= stack__[0];
+           }
+           if(stack__[1]>1){
+                return__+= stack__[1]+''+stack__[0];
+           }
+   stack__= [ arr[i],1];
+}
+
+
+}  
+       
+   if(stack__[1]==1){
+                   return__+= stack__[0];
+           }
+           if(stack__[1]>1){
+                return__+= stack__[1]+''+stack__[0];
+           }
+return ( return__)   
+    
+       }
+  
+   
+function chunkString(str, length) {
+//length의 길이 만큼 글자를 자른다.
+
+    return str.match(new RegExp('.{1,' + length + '}', 'g'));
+// 정규식으로 length의 길이만 큼 자라서 배열로 return 합니다.
+}
+    for(var i=1; i<s.length; i++){
+        var hey_return=chunkString(s,i);
+        //여기서 자른거 받음 
+       
+       min_length=Math.min  ( min_length,check_total(hey_return).length)
+    }
+    
+
+    return min_length;
+}
