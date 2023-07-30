@@ -1,0 +1,75 @@
+function solution(picks, minerals) {
+  var obj={
+      0:[1,1,1],
+      1:[5,1,1],
+      2:[25,5,1]
+  }  
+  const name_index=function(name){
+      if(name=='diamond'){
+          return 0;
+      }
+          if(name=='iron'){
+          return 1;
+      }
+          if(name=='stone'){
+          return 2;
+      }
+      
+  }
+
+
+    const name__index=function(name){
+      if(name=='diamond'){
+          return 10;
+      }
+          if(name=='iron'){
+          return 2;
+      }
+          if(name=='stone'){
+          return 1;
+      }
+      
+  }
+  
+
+  
+  
+  var main__ar=[];
+
+  
+var gogk____total=picks.reduce((ac,cure)=>ac+cure)*5;
+ minerals=   minerals.splice(0,gogk____total);
+  for(var i=0; i<gogk____total; i++){
+      
+      var fist= minerals.splice(0,5);
+      var count=0;
+       fist.map((el)=>{
+         count+=name__index(el)
+       })
+      main__ar.push([count,fist])
+      i+=4;
+      
+  }  
+ 
+  main__ar.sort((a,b)=>{ return b[0]-a[0]
+        
+  });
+       var totla_count=0;
+
+ for(var ii=0; ii<main__ar.length; ii++){
+ 
+
+  
+   var gogk___=picks.findIndex((el)=>el!=0);
+
+    var [_,start]= main__ar[ii];
+    
+    start.map((ev)=>{
+    totla_count+=obj[gogk___][name_index(ev)] 
+    })
+    picks[gogk___]-=1; 
+ }
+  return (totla_count)  
+  
+}
+
