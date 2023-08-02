@@ -1,0 +1,23 @@
+function solution(r1, r2) {
+   var count=0;
+
+  for(var i=0; i<=r2; i++){
+
+      var fir=  Math.ceil(  Math.sqrt((r1*r1)-(i*i)) );
+      var sec=  Math.floor(  Math.sqrt((r2*r2)-(i*i)) );
+     
+      if(i<=r1){
+          
+            count+= (sec-fir)+1;
+      }
+      else{
+          
+           count+= ((sec)+1);
+      }
+    
+  }
+  count*=4;
+    //console.log(count)
+   return count- ((r2-r1+1)*4)
+}
+solution(2,3)
